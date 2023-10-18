@@ -3,6 +3,6 @@
 int main ()
 {
     printf("Hello");
-    printf("Third OSS code\n");
+    printf("Fourth OSS code\n");
     return 0;
 }
