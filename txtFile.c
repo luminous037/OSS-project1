@@ -16,7 +16,7 @@ int main() {
 	char word[51][100];
 	int index = 0;
 
-	file = fopen("maze.txt", "r");
+	file = fopen("data.txt", "r");
 
 	while (fscanf(file, "%s", word[index]) == 1) {
 		index++;
