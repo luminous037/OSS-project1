@@ -1,7 +1,8 @@
 #include<stdio.h>
 
-int main (){
+int main ()
+{
     printf("Hello");
-    printf("Hellooow");
+    printf("Third OSS code\n");
     return 0;
 }
