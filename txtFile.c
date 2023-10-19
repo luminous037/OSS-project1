@@ -3,17 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-int compare(const void* a, const void* b) {
-	return strcmp((char*)a, (char*)b);
-}
-
-
-
 int main() {
 
 	FILE* file;
-	char word[51][100];
+	char word[51][100]={0};
 	int index = 0;
 
 	file = fopen("data.txt", "r");
@@ -24,26 +17,29 @@ int main() {
 
 	fclose(file);
 
-	for (int i = 0; i < index; i++) {
-		printf("%s ", word[i]);
-	}
-	printf("\n");
-	qsort(word, index, sizeof(word[0]), compare);
+	char temp[100];
 
-	const char* current = word[0];
+	for(int i=0; i<index; i++){
+		for(int j=0; j< index -i-1; j++){
+			if(strcmp(word[j+1],word[j])<0){
+				strcpy(temp,word[j]);
+				strcpy(word[j],word[j+1]);
+				strcpy(word[j+1],temp);
+			}
+		}
+	}
+
 	int count = 1;
 	for (int i = 1; i < index; i++) {
-		if (strcmp(word[i],current) ==0) {
+		if (strcmp(word[i],word[i+1]) ==0) {
 			count++;
 		}
 		else {
-			printf("%s(%d) ", current, count);
-			current = word[i];
+			printf("%s(%d) ", word[i], count);
 			count = 1;
 			
 		}
 	}
-	printf("%s(%d) ", current, count);
 	printf("\nthe total number of words = %d", index);
 	return 0;
 }
