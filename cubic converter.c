@@ -1,13 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 
-int find(int num) {
-	int cubic=1;
-	while (cubic * cubic * cubic <= num) {
-		cubic++;
-	}
-	return cubic - 1;
-}
 
 int main() {
 
@@ -22,8 +15,12 @@ int main() {
 
 		while (n > 0) {
 
-			int cubic=find(n);
+			int cubic=0;
 
+			while(cubic*cubic*cubic <= n) cubic++;
+
+			cubic -= 1;
+				
 			printf("%d", cubic * cubic * cubic);
 
 			n -= cubic * cubic * cubic;
