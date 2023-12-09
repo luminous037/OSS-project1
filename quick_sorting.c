@@ -1,56 +1,57 @@
 #include <stdio.h>
 
-void swap(int* a, int* b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+int split(int arr[], int r, int l) {
+	int v = arr[r];
+	int j = r + 1;
+	int i = l;
+
+	while (j <= i) {
+		while (arr[j] <= v && j <= i)j++;
+		while (arr[i] >= v && j <= i)i--;
+		if (j < i) {
+			int temp = arr[j];
+			arr[j] = arr[i];
+			arr[i] = temp;
+		}
+		else break;
+	}
+
+	if (i != r) {
+		arr[r] = arr[i];
+		arr[i] = v;
+	}
+
+	return i;
 }
 
-int split(int arr[], int k, int m) { //k: lowest index, m: highest index
-    int v = arr[k];
-    int j = k + 1;
-    int i = m;
+void quick(int arr[], int r, int l) {
+	if (r < l) {
+		int i = split(arr, r, l);
 
-    while (j <= i) {
-        while (arr[j] <= v && j <= i) j++;
-        while (arr[i] >= v && j <= i) i--;
-        if (j < i) swap(&arr[j], &arr[i]);
-        else break;
-    }
-
-    if (i != k) {
-        arr[k] = arr[i];
-        arr[i] = v;
-    }
-
+		quick(arr, r, i - 1);
+		quick(arr, i + 1, l);
+	}
 }
 
-void quick(int arr[], int k, int m) {
-    if (k < m) {
-        int i = split(arr, k, m);
 
-        quick(arr, k, i - 1);
-        quick(arr, i + 1, m);
-    }
-}
 
 int main() {
-    FILE* file = fopen("data.txt", "r");
+	FILE* file = fopen("data.txt", "r");
 
-    int integers[100];
-    int index = 0;
+	int integers[100];
+	int index=0;
 
-    while (fscanf(file, "%d", &integers[index]) == 1) {
-        index++;
-    }
+	while (fscanf(file, "%d", &integers[index]) ==1) {
+		index++;
+	}
 
-    fclose(file);
+	fclose(file);
 
-    quick(integers, 0, index - 1);
+	quick(integers, 0, index -1);
 
-    for (int i = 0; i < index; i++) {
-        printf("%d ", integers[i]);
-    }
+	for (int i = 0; i < index; i++) {
+		printf("%d ",integers[i]);
+	}
 
-    return 0;
+	return 0;
 }
