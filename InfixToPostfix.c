@@ -15,7 +15,6 @@ char pop() {
 }
 
 
-
 int convert(char ex) {
     switch (ex) {
     case '(': return 1;
@@ -34,11 +33,11 @@ int main() {
 
     while (1) {
         printf("Enter an expression (or type 'quit' to exit): ");
-        fgets(exp,100,stdin);
+        fgets(exp, 100, stdin);
 
         int len = strcspn(exp, "\n");
         exp[len] = '\0';
-       
+
         if (strcmp(exp, "quit") == 0) break;
 
         int index = 0;
@@ -52,7 +51,7 @@ int main() {
             }
             else if (input == ' ')continue;
 
-            else if (isalpha(input)) {
+            else if (isdigit(input)) {
                 output[k++] = input;
             }
             else if (input == ')') {
@@ -62,7 +61,7 @@ int main() {
                 pop(); // Pop '('
             }
             else {
-                while (top>=0 && convert(stack[top]) >= convert(input)) {
+                while (top >= 0 && convert(stack[top]) >= convert(input)) {
                     output[k++] = stack[top];
                     pop();
                 }
@@ -75,7 +74,7 @@ int main() {
         }
         output[k] = '\0';
 
-        printf("%s", output);
+        printf("%s ", output);
         printf("\n");
 
         k = 0;
